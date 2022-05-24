@@ -5,12 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-
+    private Animator anim;
+    private SpriteRenderer sprite;
 
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -23,6 +26,29 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, 14f);
+        }
+
+        UpdateAnimatorUpdate
+    }
+
+    private void UpdateAnimatorUpdate
+    {
+        if (dirX > 0f)
+        {
+            anim.SetBool("running", true);
+            sprite.flipX = false;
+        }
+
+        else if (dirX < 0f)
+        {
+            anim.SetBool("running", true);
+            sprite.flipX = true;
+        }
+
+        else
+        {
+            anim.SetBool("running", false);
+            
         }
     }
 }
